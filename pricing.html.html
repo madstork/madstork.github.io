@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --rock-red: #E24B4A; --rock-dark: #2C2C2A; --rock-gold: #EF9F27; --rock-light: #F1EFE8; --bg: #ffffff; --bg-secondary: #F1EFE8; --text: #2C2C2A; --text-muted: #5F5E5A; --border: rgba(0,0,0,0.1); --radius-md: 8px; --radius-lg: 12px; }
+    html { scroll-behavior: smooth; }
+    body { font-family: "DM Sans", sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.7; }
+    a { text-decoration: none; color: inherit; }
+    .rb-nav-bar { background: var(--rock-dark); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 56px; position: sticky; top: 0; z-index: 100; }
+    .rb-nav-logo { font-family: "Bebas Neue", sans-serif; font-size: 16px; letter-spacing: 3px; color: var(--rock-gold); white-space: nowrap; }
+    .rb-nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .rb-nav-links a { font-size: 13px; color: rgba(255,255,255,0.65); letter-spacing: 0.5px; font-weight: 500; transition: color 0.2s; }
+    .rb-nav-links a:hover, .rb-nav-links a.active { color: white; }
+    .rb-nav-cta { background: var(--rock-red); color: white !important; padding: 7px 18px; border-radius: 4px; font-size: 13px !important; }
+    .rb-page-hero { background: var(--rock-dark); padding: 4rem 2rem 3rem; text-align: center; position: relative; overflow: hidden; }
+    .rb-page-hero::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(226,75,74,0.05) 40px, rgba(226,75,74,0.05) 80px); pointer-events: none; }
+    .rb-page-hero-inner { position: relative; max-width: 720px; margin: 0 auto; }
+    .rb-page-hero h1 { font-family: "Bebas Neue", sans-serif; font-size: clamp(2.5rem, 7vw, 4rem); letter-spacing: 2px; color: white; margin-bottom: 0.5rem; }
+    .rb-page-hero h1 span { color: var(--rock-red); }
+    .rb-page-hero p { font-size: 15px; color: rgba(255,255,255,0.6); max-width: 480px; margin: 0 auto; line-height: 1.65; }
+    .rb-page-hero-tag { display: inline-block; font-size: 11px; letter-spacing: 3px; color: var(--rock-gold); border: 1px solid rgba(239,159,39,0.4); padding: 5px 16px; border-radius: 2px; margin-bottom: 1.25rem; }
+    .rb-section { padding: 4rem 2rem; max-width: 900px; margin: 0 auto; }
+    .rb-section-full { padding: 4rem 2rem; }
+    .rb-section-full-inner { max-width: 900px; margin: 0 auto; }
+    .rb-section-title { font-family: "Bebas Neue", sans-serif; font-size: 2.2rem; letter-spacing: 1px; color: var(--text); margin-bottom: 0.4rem; }
+    .rb-section-title.light { color: white; }
+    .rb-accent-line { width: 48px; height: 3px; background: var(--rock-red); margin-bottom: 1.75rem; border-radius: 2px; }
+    .btn-primary { background: var(--rock-red); color: white; border: none; padding: 13px 32px; border-radius: 4px; font-size: 15px; font-weight: 500; cursor: pointer; font-family: "DM Sans", sans-serif; transition: opacity 0.2s; display: inline-block; }
+    .btn-primary:hover { opacity: 0.88; }
+    .rb-cta-bar { background: var(--rock-red); padding: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .rb-cta-bar p { font-family: "Bebas Neue", sans-serif; font-size: 1.5rem; letter-spacing: 1px; color: white; }
+    .btn-white { background: white; color: var(--rock-red); border: none; padding: 12px 28px; border-radius: 4px; font-size: 15px; font-weight: 500; cursor: pointer; font-family: "DM Sans", sans-serif; white-space: nowrap; transition: opacity 0.2s; }
+    .btn-white:hover { opacity: 0.88; }
+    .rb-footer { background: var(--rock-dark); padding: 3rem 2rem 1.5rem; }
+    .rb-footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 2rem; max-width: 900px; margin: 0 auto 2rem; }
+    .rb-footer h4 { font-family: "Bebas Neue", sans-serif; font-size: 14px; letter-spacing: 2px; color: var(--rock-gold); margin-bottom: 0.75rem; }
+    .rb-footer p, .rb-footer a { color: rgba(255,255,255,0.4); font-size: 13px; display: block; margin-bottom: 5px; line-height: 1.65; transition: color 0.2s; }
+    .rb-footer a:hover { color: rgba(255,255,255,0.75); }
+    .rb-footer-copy { border-top: 0.5px solid rgba(255,255,255,0.08); padding-top: 1.25rem; text-align: center; font-size: 12px; color: rgba(255,255,255,0.25); max-width: 900px; margin: 0 auto; }
+    .rb-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 999; align-items: center; justify-content: center; padding: 1rem; }
+    .rb-modal-overlay.open { display: flex; }
+    .rb-modal { background: white; border-radius: 12px; width: 100%; max-width: 520px; overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,0.3); animation: modalIn 0.25s ease; }
+    @keyframes modalIn { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    .rb-modal-header { background: var(--rock-dark); padding: 1.5rem 2rem; display: flex; align-items: center; justify-content: space-between; }
+    .rb-modal-header h2 { font-family: "Bebas Neue", sans-serif; font-size: 1.6rem; letter-spacing: 1px; color: white; }
+    .rb-modal-header span { color: var(--rock-gold); }
+    .rb-modal-close { background: none; border: none; color: rgba(255,255,255,0.6); font-size: 28px; cursor: pointer; line-height: 1; padding: 0; }
+    .rb-modal-close:hover { color: white; }
+    .rb-modal-body { padding: 2rem; }
+    .rb-modal-body p { font-size: 14px; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.6; }
+    .rb-field { margin-bottom: 1rem; }
+    .rb-field label { display: block; font-size: 12px; font-weight: 500; color: var(--text); letter-spacing: 0.5px; margin-bottom: 5px; text-transform: uppercase; }
+    .rb-field input, .rb-field select, .rb-field textarea { width: 100%; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 6px; font-size: 14px; font-family: "DM Sans", sans-serif; color: var(--text); background: white; transition: border-color 0.2s; outline: none; }
+    .rb-field input:focus, .rb-field select:focus, .rb-field textarea:focus { border-color: var(--rock-red); }
+    .rb-field textarea { resize: vertical; min-height: 80px; }
+    .rb-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .rb-modal-submit { width: 100%; background: var(--rock-red); color: white; border: none; padding: 14px; border-radius: 6px; font-size: 15px; font-weight: 500; cursor: pointer; font-family: "DM Sans", sans-serif; margin-top: 0.5rem; transition: opacity 0.2s; }
+    .rb-modal-submit:hover { opacity: 0.88; }
+    .rb-modal-success { display: none; text-align: center; padding: 3rem 2rem; }
+    .rb-modal-success .rb-success-star { font-size: 3.5rem; margin-bottom: 1rem; }
+    .rb-modal-success h3 { font-family: "Bebas Neue", sans-serif; font-size: 2rem; color: var(--rock-dark); margin-bottom: 0.5rem; }
+    .rb-modal-success p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+    @media (max-width: 600px) { .rb-nav-links { display: none; } .rb-cta-bar { flex-direction: column; text-align: center; } }
+    /* pricing specific */
+    .pricing-intro { text-align: center; max-width: 580px; margin: 0 auto 3rem; }
+    .pricing-intro p { font-size: 15px; color: var(--text-muted); line-height: 1.7; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 3rem; }
+    .pricing-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2rem 1.5rem; position: relative; }
+    .pricing-card.featured { border: 2px solid var(--rock-red); }
+    .pricing-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--rock-red); color: white; font-size: 11px; font-weight: 500; padding: 4px 14px; border-radius: 20px; white-space: nowrap; letter-spacing: 0.5px; }
+    .pricing-tier { font-family: "Bebas Neue", sans-serif; font-size: 1.4rem; letter-spacing: 1px; color: var(--rock-dark); margin-bottom: 0.25rem; }
+    .pricing-desc { font-size: 12px; color: var(--text-muted); margin-bottom: 1.25rem; line-height: 1.5; }
+    .pricing-price { font-family: "Bebas Neue", sans-serif; font-size: 3.5rem; color: var(--rock-dark); line-height: 1; }
+    .pricing-price sup { font-size: 1.5rem; vertical-align: top; margin-top: 0.5rem; display: inline-block; }
+    .pricing-period { font-size: 13px; color: var(--text-muted); margin-bottom: 1.5rem; }
+    .pricing-features { list-style: none; margin-bottom: 1.5rem; }
+    .pricing-features li { font-size: 13px; color: var(--text-muted); padding: 6px 0; border-bottom: 0.5px solid var(--border); display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
+    .pricing-features li::before { content: "&#10003;"; color: var(--rock-red); font-weight: bold; flex-shrink: 0; }
+    .pricing-addons { background: var(--bg-secondary); border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem; }
+    .pricing-addons h4 { font-size: 11px; font-weight: 500; letter-spacing: 1px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem; }
+    .pricing-addons p { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+    .pricing-btn { width: 100%; background: var(--rock-dark); color: white; border: none; padding: 12px; border-radius: 6px; font-size: 14px; font-weight: 500; cursor: pointer; font-family: "DM Sans", sans-serif; transition: background 0.2s; }
+    .pricing-btn:hover { background: var(--rock-red); }
+    .pricing-card.featured .pricing-btn { background: var(--rock-red); }
+    .pricing-card.featured .pricing-btn:hover { background: #c93a39; }
+    .pricing-note { background: var(--bg-secondary); border-left: 4px solid var(--rock-gold); padding: 1.25rem 1.5rem; border-radius: 0 8px 8px 0; margin-bottom: 3rem; }
+    .pricing-note p { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+    .pricing-note strong { color: var(--rock-dark); }
+    .walkthrough { background: var(--rock-dark); border-radius: 12px; padding: 2.5rem; }
+    .walkthrough h3 { font-family: "Bebas Neue", sans-serif; font-size: 1.6rem; letter-spacing: 1px; color: white; margin-bottom: 0.5rem; }
+    .walkthrough p { font-size: 14px; color: rgba(255,255,255,0.6); margin-bottom: 1.5rem; line-height: 1.65; }
+  </style>
+</head>
+<body>
+  <nav class="rb-nav-bar">
+    <a href="index.html" class="rb-nav-logo">&#9733; Rockstar Accounting</a>
+    <ul class="rb-nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="pricing.html" class="active">Pricing &amp; Billing</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="#" class="rb-nav-cta" onclick="openModal(); return false;">Get a quote</a></li>
+    </ul>
+  </nav>
+  <div class="rb-page-hero">
+    <div class="rb-page-hero-inner">
+      <div class="rb-page-hero-tag">&#9733; TRANSPARENT PRICING &#9733;</div>
+      <h1>Pricing &amp; <span>Billing</span></h1>
+      <p>Simple, affordable, month-to-month plans. No hidden fees, no long-term contracts. Cancel anytime.</p>
+    </div>
+  </div>
+
+  <section class="rb-section">
+    <div class="pricing-intro">
+      <div class="rb-section-title" style="text-align:center">Plans for your business</div>
+      <div class="rb-accent-line" style="margin: 0.4rem auto 1.25rem"></div>
+      <p>Our monthly cost depends on your transaction count. If your transaction volume increases for two straight months, we'll auto-upgrade your plan to match your business growth.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-tier">Starter</div>
+        <div class="pricing-desc">Ideal for small businesses with 0&ndash;50 transactions/mo</div>
+        <div class="pricing-price"><sup>$</sup>109</div>
+        <div class="pricing-period">per month</div>
+        <ul class="pricing-features">
+          <li>Monthly Reconciliation</li>
+          <li>Monthly Profit/Loss &amp; Balance Sheet</li>
+          <li>Monthly Quality Review with your Account Manager</li>
+        </ul>
+        <div class="pricing-addons">
+          <h4>Add-ons available</h4>
+          <p>Payroll: $60/mo + $6/employee/mo<br>Billing/Invoicing: $100/mo + $5/bill (includes 5)</p>
+        </div>
+        <button class="pricing-btn" onclick="openModal()">Get Started Today</button>
+      </div>
+
+      <div class="pricing-card featured">
+        <div class="pricing-badge">Most Popular</div>
+        <div class="pricing-tier">Growing</div>
+        <div class="pricing-desc">Suitable for businesses with 50&ndash;120 transactions/mo</div>
+        <div class="pricing-price"><sup>$</sup>209</div>
+        <div class="pricing-period">per month</div>
+        <ul class="pricing-features">
+          <li>Monthly Reconciliation</li>
+          <li>Monthly Profit/Loss &amp; Balance Sheet</li>
+          <li>Monthly Quality Review with your Account Manager</li>
+        </ul>
+        <div class="pricing-addons">
+          <h4>Add-ons available</h4>
+          <p>Payroll: $60/mo + $6/employee/mo<br>Billing/Invoicing: $100/mo + $5/bill (includes 5)</p>
+        </div>
+        <button class="pricing-btn" onclick="openModal()">Get Started Today</button>
+      </div>
+
+      <div class="pricing-card">
+        <div class="pricing-tier">Established</div>
+        <div class="pricing-desc">Designed for businesses with 120&ndash;220 transactions/mo</div>
+        <div class="pricing-price"><sup>$</sup>309</div>
+        <div class="pricing-period">per month</div>
+        <ul class="pricing-features">
+          <li>Monthly Reconciliation</li>
+          <li>Monthly Profit/Loss &amp; Balance Sheet</li>
+          <li>Monthly Quality Review with your Account Manager</li>
+        </ul>
+        <div class="pricing-addons">
+          <h4>Add-ons available</h4>
+          <p>Payroll: $60/mo + $6/employee/mo<br>Billing/Invoicing: $100/mo + $5/bill (includes 5)</p>
+        </div>
+        <button class="pricing-btn" onclick="openModal()">Get Started Today</button>
+      </div>
+
+      <div class="pricing-card">
+        <div class="pricing-tier">Industry Leader</div>
+        <div class="pricing-desc">Perfect for businesses with 220&ndash;400 transactions/mo</div>
+        <div class="pricing-price"><sup>$</sup>409</div>
+        <div class="pricing-period">per month</div>
+        <ul class="pricing-features">
+          <li>Monthly Reconciliation</li>
+          <li>Monthly Profit/Loss &amp; Balance Sheet</li>
+          <li>Monthly Quality Review with your Account Manager</li>
+        </ul>
+        <div class="pricing-addons">
+          <h4>Add-ons available</h4>
+          <p>Payroll: $60/mo + $6/employee/mo<br>Billing/Invoicing: $100/mo + $5/bill (includes 5)</p>
+        </div>
+        <button class="pricing-btn" onclick="openModal()">Get Started Today</button>
+      </div>
+    </div>
+
+    <div class="pricing-note">
+      <p><strong>Not sure which plan you need?</strong> No problem. After you choose your plan and a bookkeeper is assigned, we'll reach out to estimate any additional charges based on your actual transaction and invoice volume. You'll never be surprised by your bill.</p>
+    </div>
+
+    <div class="walkthrough">
+      <h3>Book a free walkthrough meeting</h3>
+      <p>In our walkthrough meeting, we'll introduce our team, understand your needs, and show you exactly how Rockstar Bookkeeping works — and how we'll align with your goals. No pressure, just clarity. Excited to meet you!</p>
+      <button class="btn-white" onclick="openModal()">Schedule a Meeting &#9733;</button>
+    </div>
+  </section>
+  <div class="rb-cta-bar">
+    <p>Ready to speak to a rockstar bookkeeper?</p>
+    <button class="btn-white" onclick="openModal()">Get a free quote &rarr;</button>
+  </div>
+  <footer class="rb-footer">
+    <div class="rb-footer-grid">
+      <div>
+        <h4>Rockstar Bookkeeping</h4>
+        <p>285 Fulton St, 85th Floor<br>New York, NY 10007</p>
+        <p style="margin-top:8px">(212) 729-6706</p>
+        <p>info@rockstartaxes.com</p>
+      </div>
+      <div>
+        <h4>Navigation</h4>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="pricing.html">Pricing &amp; Billing</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+    <div class="rb-footer-copy">Copyright &copy; 2025, Rockstar Bookkeeping &amp; Accounting &mdash; All Rights Reserved.</div>
+  </footer>
+  <div class="rb-modal-overlay" id="quoteModal" onclick="handleOverlayClick(event)">
+    <div class="rb-modal">
+      <div class="rb-modal-header">
+        <h2>Get a <span>Free Quote</span></h2>
+        <button class="rb-modal-close" onclick="closeModal()">&times;</button>
+      </div>
+      <div class="rb-modal-body" id="modalForm">
+        <p>Tell us about your business and we'll be in touch within one business day.</p>
+        <div class="rb-field-row">
+          <div class="rb-field"><label>First Name</label><input type="text" id="firstName" placeholder="Jane" /></div>
+          <div class="rb-field"><label>Last Name</label><input type="text" id="lastName" placeholder="Smith" /></div>
+        </div>
+        <div class="rb-field"><label>Email Address</label><input type="email" id="email" placeholder="jane@yourbusiness.com" /></div>
+        <div class="rb-field"><label>Phone Number</label><input type="tel" id="phone" placeholder="(212) 555-0000" /></div>
+        <div class="rb-field"><label>Business Name</label><input type="text" id="business" placeholder="Your Business LLC" /></div>
+        <div class="rb-field"><label>What do you need help with?</label>
+          <select id="service"><option value="">Select a service...</option><option>Monthly Bookkeeping</option><option>Catch-up / Back Bookkeeping</option><option>Payroll</option><option>Tax Preparation</option><option>Financial Reporting</option><option>Not sure yet</option></select>
+        </div>
+        <div class="rb-field"><label>Anything else?</label><textarea id="message" placeholder="Tell us about your business..."></textarea></div>
+        <button class="rb-modal-submit" onclick="submitForm()">Send My Quote Request &#9733;</button>
+      </div>
+      <div class="rb-modal-success" id="modalSuccess">
+        <div class="rb-success-star">&#9733;</div>
+        <h3>You're a Rockstar!</h3>
+        <p>Thanks for reaching out. We'll be in touch within one business day.<br><br>Call us anytime at <strong>(212) 729-6706</strong>.</p>
+      </div>
+    </div>
+  </div>
+  <script>
+    function openModal(){document.getElementById("quoteModal").classList.add("open");document.body.style.overflow="hidden";}
+    function closeModal(){document.getElementById("quoteModal").classList.remove("open");document.body.style.overflow="";setTimeout(function(){document.getElementById("modalForm").style.display="block";document.getElementById("modalSuccess").style.display="none";},300);}
+    function handleOverlayClick(e){if(e.target===document.getElementById("quoteModal"))closeModal();}
+    function submitForm(){var f=document.getElementById("firstName").value.trim();var em=document.getElementById("email").value.trim();if(!f||!em){alert("Please enter your first name and email.");return;}document.getElementById("modalForm").style.display="none";document.getElementById("modalSuccess").style.display="block";}
+    document.addEventListener("keydown",function(e){if(e.key==="Escape")closeModal();});
+  </script>
+</body>
+</html>
